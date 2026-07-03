@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration status="WARN">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n">
+            </PatternLayout>
+        </Console>
+        <File name="logToFile" fileName="${sys:user.home}/logs/oop.log">
+            <PatternLayout pattern="%d [%t] %-5p [%c]-%m-%n">
+            </PatternLayout>
+        </File>
+    </appenders>
+    <loggers>
+        <root level="Trace">
+            <appender-ref ref="Console"></appender-ref>
+            <appender-ref ref="logToFile"></appender-ref>
+        </root>
+    </loggers>
+</configuration>
