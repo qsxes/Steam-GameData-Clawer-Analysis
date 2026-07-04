@@ -13,10 +13,11 @@ import service.SteamApiService;
  * @project_name : JDBC
  */
 public class StartControl extends BaseControl{
-    private static final String START_MENU="请选择功能\n1.爬取游戏商店数据\t2.查看游戏数据\n3.修复日期字段\t4.初始化数据库(当前状态：{})\n5.翻译评论描述字段\n0.退出:";
+    private static final String START_MENU="请选择功能\n1.爬取游戏商店数据\t2.查看游戏数据\n3.修复日期字段\t4.初始化数据库(当前状态：{},注意，初始化数据库会丢失原有表数据)\n5.翻译评论描述字段\n0.退出:";
     private static final String PARSED_DATETIME="已更新 {} 条记录的日期字段";
     private static final String INIT_EFFECT = "执行了{}条建表语句";
     private static final String TRANSLATE_REVIEW_DESC="翻译完成，共更新 {} 条记录";
+    private static final String WARN_DATABASE_INIT = "数据库未初始化，请先执行【4. 初始化数据库】";
     private GamesTableService service = new GamesTableService(new StreamApiDaoImpl(),new SteamApiService());
 
     @Override
@@ -26,19 +27,19 @@ public class StartControl extends BaseControl{
         switch (type){
             case 1:
                 if (!BaseDao.is_init()) {
-                    logger.warn("数据库未初始化，请先执行【4. 初始化数据库】");
+                    logger.warn(WARN_DATABASE_INIT);
                     return this;
                 }
                 return ControlEnum.CLAWER_GAME_SHOP.getControl();
             case 2:
                 if (!BaseDao.is_init()) {
-                    logger.warn("数据库未初始化，请先执行【4. 初始化数据库】");
+                    logger.warn(WARN_DATABASE_INIT);
                     return this;
                 }
                 return ControlEnum.SELECT.getControl();
             case 3:
                 if (!BaseDao.is_init()) {
-                    logger.warn("数据库未初始化，请先执行【4. 初始化数据库】");
+                    logger.warn(WARN_DATABASE_INIT);
                     return this;
                 }
                 int updated = service.parsedDateTime();
@@ -50,7 +51,7 @@ public class StartControl extends BaseControl{
                 return this;
             case 5:
                 if (!BaseDao.is_init()) {
-                    logger.warn("数据库未初始化，请先执行【4. 初始化数据库】");
+                    logger.warn(WARN_DATABASE_INIT);
                     return this;
                 }
                 int count = service.translateDesc();

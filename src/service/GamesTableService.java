@@ -43,12 +43,14 @@ public class GamesTableService {
         try {
             conn = getConn();
             conn.setAutoCommit(false);
-            if (steamDao.existsGame(game.getAppId(), conn)) {
-                logger.info("游戏 {} 已存在，跳过", game.getAppId());
-                conn.commit();
-                return;
+            int rows = steamDao.insertNewGame(game, conn);
+            if (rows == 1) {
+                logger.info("游戏 {} 新增入库", game.getAppId());
+            } else if (rows == 2) {
+                logger.info("游戏 {} 已存在，数据已更新", game.getAppId());
+            } else {
+                logger.info("游戏 {} 未发生变化，跳过", game.getAppId());
             }
-            steamDao.insertNewGame(game,conn);
             for (Tag tag : game.getGenres()) {
                 steamDao.insertNewTag(tag, conn);
             }

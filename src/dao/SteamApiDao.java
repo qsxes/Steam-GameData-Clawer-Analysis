@@ -14,7 +14,7 @@ import java.util.List;
  * @project_name : SteamSQL
  */
 public interface SteamApiDao {
-    void insertNewGame(GameShop gameShop, Connection conn)throws SQLException;
+    int insertNewGame(GameShop gameShop, Connection conn)throws SQLException;
     void insertNewTag(Tag tag, Connection conn)throws SQLException;
     void insertNewGame_tag(GameShop gameShop, Connection conn)throws SQLException;
     void updateReviewData(int appId, long positive, long negative, long total, String desc, Connection conn) throws SQLException;

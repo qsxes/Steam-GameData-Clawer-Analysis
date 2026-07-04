@@ -83,6 +83,10 @@ public class BaseDao {
 
         try {
             conn = getConnectionForCheck();
+            if (conn == null) {
+                System.err.println("数据库连接失败，请检查 steamApi.properties 中的 user 和 password。");
+                return false;
+            }
             pstmt = conn.prepareStatement(getProperty("isInit"));
             rs = pstmt.executeQuery();
             if (rs.next()){

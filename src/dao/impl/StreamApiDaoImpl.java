@@ -24,7 +24,7 @@ import java.util.List;
 public class StreamApiDaoImpl extends BaseDao implements SteamApiDao {
     Logger logger = LogManager.getLogger();
     @Override
-    public void insertNewGame(GameShop gameShop, Connection conn)throws SQLException {
+    public int insertNewGame(GameShop gameShop, Connection conn)throws SQLException {
         PreparedStatement pstmt = null;
 
         try {
@@ -45,7 +45,7 @@ public class StreamApiDaoImpl extends BaseDao implements SteamApiDao {
             pstmt.setLong(9,gameShop.getTotalReviews());
             pstmt.setString(10,gameShop.getReview_score_desc());
             pstmt.setString(11,gameShop.getType());
-            pstmt.executeUpdate();
+            return pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException(e);
         }finally {
