@@ -40,7 +40,7 @@ public class SelectGameByFree extends BaseControl implements Control {
             String dev = g.getDeveloper() == null ? "" : g.getDeveloper();
             String price = g.getPrice() == null ? "暂无价格" : g.getPrice().toString();
             String type  = g.getType() == null ? "" : g.getType();
-            logger.info("{} | {} | {} | {} | {} | {}", i++, name, dev, price, rate,type);
+            logger.info("{} | {} | {} | {}￥ | {}% | {}", i++, name, dev, price, rate,type);
         }
     }
 

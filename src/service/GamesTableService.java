@@ -131,7 +131,7 @@ public class GamesTableService {
                 }
 
                 try {
-                    Thread.sleep(300);
+                    Thread.sleep(200);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     logger.warn("线程被中断，停止更新评论");

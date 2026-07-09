@@ -25,7 +25,7 @@ public class SelectGameByMonth extends BaseControl implements Control {
     private static final String MONTH_INPUT = "请输入月份：";
     private static final String YEAR_INPUT = "请输入年份：";
     private static final String CURR_PAGE = "共{}页,当前第{}页";
-    private static final String OPTION="1.下一页 2.上一页 3.查看游戏详情 0.返回上一级";
+    private static final String OPTION="1.下一页 2.上一页 3.查看游戏详情 4.输入跳转页面 0.返回上一级";
     private static final String HEAD="到头了，无法继续向前翻页";
     private static final String TAIL="到尾了，无法继续向后翻页";
     private int month = 0;
@@ -94,6 +94,18 @@ public class SelectGameByMonth extends BaseControl implements Control {
                     logger.info("无效序号，请输入当前页显示的序号。");
                 }
                 return this;
+            case 4:
+                logger.info("请输入要跳转的页面");
+                while (true){
+                    int page = input.nextInt();
+                    if (page<=0 || page>totalPage){
+                        logger.error("输入值超过页面数量！请重新输入");
+                        continue;
+                    }
+                    currPage=page;
+                    return this;
+
+                }
             case 0:
                 return ControlEnum.SELECT.getControl();
             default:
@@ -117,7 +129,7 @@ public class SelectGameByMonth extends BaseControl implements Control {
             String dev = g.getDeveloper() == null ? "" : g.getDeveloper();
             String price = g.getPrice() == null ? "暂无价格" : g.getPrice().toString();
             String type  = g.getType() == null ? "" : g.getType();
-            logger.info("{} | {} | {} | {} | {} | {}", i++, name, dev, price, rate,type);
+            logger.info("{} | {} | {} | {}￥ | {}% | {}", i++, name, dev, price, rate,type);
         }
     }
 
