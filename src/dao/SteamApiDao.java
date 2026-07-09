@@ -21,7 +21,7 @@ public interface SteamApiDao {
     void insertNewNot_in_china(int appid,Connection conn)throws SQLException;
     List<GameShop> getDesc(Connection conn)throws SQLException;
     void updateDesc(GameShop game,Connection conn)throws SQLException;
-    List<GameShop> getGameByMonth(int month,int offset)throws SQLException;
+    List<GameShop> getGameByMonth(int month,int year,int offset)throws SQLException;
     int getTotalGame()throws SQLException;
     int getTotalGameByMonth(int month)throws SQLException;
     List<GameShop> getGameByFree()throws SQLException;

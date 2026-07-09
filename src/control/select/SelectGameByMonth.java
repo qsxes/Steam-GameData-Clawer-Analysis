@@ -23,6 +23,7 @@ public class SelectGameByMonth extends BaseControl implements Control {
     private GamesTableService service = new GamesTableService(new StreamApiDaoImpl(),new SteamApiService());
     private Logger logger = LogManager.getLogger();
     private static final String MONTH_INPUT = "请输入月份：";
+    private static final String YEAR_INPUT = "请输入年份：";
     private static final String CURR_PAGE = "共{}页,当前第{}页";
     private static final String OPTION="1.下一页 2.上一页 3.查看游戏详情 0.返回上一级";
     private static final String HEAD="到头了，无法继续向前翻页";
@@ -31,6 +32,7 @@ public class SelectGameByMonth extends BaseControl implements Control {
     private int currPage = 1;
     private int totalPage = 0;
     private int totalCount = 0;
+    private int year = 0;
 
     @Override
     public Control execute() {
@@ -38,9 +40,13 @@ public class SelectGameByMonth extends BaseControl implements Control {
             logger.info(MONTH_INPUT);
             month = input.nextInt();
         }
+        if (year==0){
+            logger.info(YEAR_INPUT);
+            year = input.nextInt();
+        }
         totalCount = service.getGamesCountByMonth(month);
         totalPage = (totalCount+10-1)/10;
-        List<GameShop> gamesByMonth = service.getGamesByMonth(month,(currPage-1)*10);
+        List<GameShop> gamesByMonth = service.getGamesByMonth(month,year,(currPage-1)*10);
         printGames(gamesByMonth,currPage);
         logger.info(CURR_PAGE,totalPage,currPage);
         logger.info(OPTION);

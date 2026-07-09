@@ -171,6 +171,9 @@ public class GamesTableService {
             for (GameShop game : games) {
                 String original = game.getReview_score_desc();
                 String translated = "";
+                if (game.getReview_score_desc()==null){
+                    translated = Translate.NO_USER_REVIEWS.getChinese();
+                }
                 switch (game.getReview_score_desc()){
                     case "Overwhelmingly Positive":
                         translated = Translate.OVERWHELMINGLY_POSITIVE.getChinese();
@@ -208,7 +211,6 @@ public class GamesTableService {
                     count++;  // 只有实际更新时才计数
                 }
                 game.setReview_score_desc(translated);
-                steamDao.updateDesc(game,conn);
             }
             return count;
         } catch (SQLException e) {
@@ -218,10 +220,10 @@ public class GamesTableService {
         }
     }
 
-    public List<GameShop> getGamesByMonth(int month,int offset){
+    public List<GameShop> getGamesByMonth(int month,int year,int offset){
         List<GameShop> gameShops = null;
         try {
-           gameShops= steamDao.getGameByMonth(month,offset);
+           gameShops= steamDao.getGameByMonth(month,year,offset);
         } catch (SQLException e) {
             logger.error("根据月份获取游戏数据失败",e);
         }

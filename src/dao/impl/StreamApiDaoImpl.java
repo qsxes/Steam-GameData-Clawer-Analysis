@@ -156,7 +156,7 @@ public class StreamApiDaoImpl extends BaseDao implements SteamApiDao {
     }
 
     @Override
-    public List<GameShop> getGameByMonth(int month,int offset) throws SQLException{
+    public List<GameShop> getGameByMonth(int month,int year,int offset) throws SQLException{
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -166,7 +166,8 @@ public class StreamApiDaoImpl extends BaseDao implements SteamApiDao {
             conn = getConn();
             pstmt = conn.prepareStatement(getProperty("SELECTBYMONTH"));
             pstmt.setInt(1,month);
-            pstmt.setInt(2,offset);
+            pstmt.setInt(2,year);
+            pstmt.setInt(3,offset);
             rs = pstmt.executeQuery();
             while (rs.next()){
                 GameShop gameShop = new GameShop();
